@@ -1,0 +1,35 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: "jdbc:mysql://${APP_MYSQL_HOST_URL:localhost}:${APP_MYSQL_PORT:3306}/portal"
+    username: ${APP_MYSQL_USER_NAME:dbusername}
+    password: ${APP_MYSQL_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: SpringBootHikariCP
+      maximum-pool-size: 50
+      minimum-idle: 3
+      max-lifetime: 72000000
+      connection-timeout: 120000
+      idle-timeout: 9000000
+      validation-timeout: 100000
+      connection-test-query: SELECT 1
+      data-source-properties:
+        cache-prep-stmts: true
+        prep-stmt-cache-size: 300
+        prep-stmt-cache-sql-limit: 2480
+        databaseTerm: SCHEMA
+      health-check-properties:
+        connectivity-check-timeout-ms: 1000
+        expected-99th-percentile-ms: 10
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
